@@ -12,6 +12,11 @@
 		<descriptorBase>
 			<descriptor id="dTelaInteira" region="rgTelaInteira" />
 			<descriptor id="dInteratividade" region="rgInteratividade" />
+			<descriptor id="dTemp" region="rgInteratividade" explicitDur="5s" >
+				<descriptorParam name="fontSize" value="30"/>
+				<descriptorParam name="fontColor" value="silver"/>
+			</descriptor>
+				
 		</descriptorBase>
 		
 		<connectorBase>
@@ -20,57 +25,50 @@
 	</head>
 
 	<body>
-		<media id="videoNoticias" src="media/noticias.mp4" descriptor="dTelaInteira" >
-			<area id="aGRU" begin="10s" end="15s"/>
-			<area id="aJPA" begin="15s" end="20s"/>
-			<area id="aPOA" begin="20s" end="25s"/>
+		<media id="videoNoticias" src="media/noticias.mp4" descriptor="dTelaInteira">
+			<area id="aInteratividade" begin="5s" end="10s"/>
 		</media>
-			
+						
 		<media id="imgInteratividade" src="media/interatividade.png" descriptor="dInteratividade" />				
-		<media id="txtGRU" src="media/GRU.txt" descriptor="dInteratividade" />			
-		<media id="txtJPA" src="media/JPA.txt" descriptor="dInteratividade" />
-		<media id="txtPOA" src="media/POA.txt" descriptor="dInteratividade" />
+		<media id="txtGRU" src="media/GRU.txt" descriptor="dTemp" />				
+		<media id="txtJPA" src="media/JPA.txt" descriptor="dTemp" />
+		<media id="txtPOA" src="media/POA.txt" descriptor="dTemp" />
 		
 		<port id="pVideoNoticias" component="videoNoticias"/>
 		
 		<link xconnector="meusConectores#onBeginStart">
-			<bind role="onBegin" component="videoNoticias" />
-			<bind role="start" component="imgInteratividade" />
-		</link>
-		
-		<link xconnector="meusConectores#onBeginStart">
-			<bind role="onBegin" component="videoNoticias" />
+			<bind role="onBegin" component="videoNoticias" interface="aInteratividade" />
 			<bind role="start" component="imgInteratividade" />			
 		</link>
 		
-		<link xconnector="meusConectores#onBeginStartNStopN">
-			<bind role="onBegin" component="videoNoticias" interface="aGRU" />
+		<link xconnector="meusConectores#onEndStartNStopN">
+			<bind role="onEnd" component="videoNoticias" interface="aInteratividade"/>
 			<bind role="start" component="txtGRU" />
-			<bind role="stop" component="imgInteratividade" />
-		</link>
-		
-		<link xconnector="meusConectores#onBeginStartNStopN">
-			<bind role="stop" component="txtGRU" />
-			<bind role="onBegin" component="videoNoticias" interface="aJPA" />
-			<bind role="start" component="txtJPA" />			
-		</link>
-		
-		<link xconnector="meusConectores#onBeginStartNStopN">
-			<bind role="stop" component="txtJPA" />
-			<bind role="onBegin" component="videoNoticias" interface="aPOA"/>
-			<bind role="start" component="txtPOA" />
+			<bind role="stop" component="imgInteratividade" />			
 		</link>
 		
 		<link xconnector="meusConectores#onEndStartNStopN">
+			<bind role="onEnd" component="txtGRU" />
+			<bind role="start" component="txtJPA" />
+			<bind role="stop" component="txtGRU" />
+		</link>
+		
+		<link xconnector="meusConectores#onEndStartNStopN">
+			<bind role="onEnd" component="txtJPA" />
+			<bind role="start" component="txtPOA" />
+			<bind role="stop" component="txtJPA" />
+		</link>
+		
+		<link xconnector="meusConectores#onEndStartNStopN">
+			<bind role="onEnd" component="txtPOA" />
+			<bind role="start" component="imgInteratividade" />
 			<bind role="stop" component="txtPOA" />
-			<bind role="onEnd" component="videoNoticias" interface="aPOA" />
-			<bind role="start" component="imgInteratividade" />						
 		</link>
 		
 		<link xconnector="meusConectores#onEndStop">
 			<bind role="onEnd" component="videoNoticias" />
 			<bind role="stop" component="imgInteratividade" />
 		</link>
-		
+				
 	</body>
 </ncl>
