@@ -16,6 +16,7 @@
 				<simpleCondition role="onEndAttribution"/>
 				<simpleAction role="set" value="$value"/>
 			</causalConnector>
+			
 			<causalConnector id="onEndAttributionTestStartN">
 				<connectorParam name="value"/>
 				<compoundCondition operator="and">
