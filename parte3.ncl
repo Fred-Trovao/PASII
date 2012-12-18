@@ -16,8 +16,7 @@
 				<descriptorParam name="fontSize" value="30"/>
 				<descriptorParam name="fontColor" value="silver"/>
 			</descriptor>
-			<descriptor id="dMenu" region="rgInteratividade" />
-				
+							
 		</descriptorBase>
 		
 		<connectorBase>
@@ -31,9 +30,6 @@
 		</media>
 						
 		<media id="imgInteratividade" src="media/interatividade.png" descriptor="dInteratividade" />
-		<media id="imgMenu" src="media/menu.png" descriptor="dMenu">
-			
-		</media>
 						
 		<media id="txtGRU" src="media/GRU.txt" descriptor="dTemp" />				
 		<media id="txtJPA" src="media/JPA.txt" descriptor="dTemp" />
@@ -50,75 +46,74 @@
 			<bind role="onSelection" component="imgInteratividade" >
 				<bindParam name="keyCode" value="BLUE"/>
 			</bind>				
-			<bind role="start" component="imgMenu" />
+			<bind role="start" component="txtGRU" />
 			<bind role="stop" component="imgInteratividade" />
 		</link>
 		
 		<link xconnector="meusConectores#onKeySelectionStartNStopN">
-			<bind role="onSelection" component="imgMenu">
-				<bindParam name="keyCode" value="1"/>
-			</bind>
-			<bind role="start" component="txtGRU" />
-			<bind role="stop" component="imgMenu" />
-			
-		</link>
-		
-		<link xconnector="meusConectores#onKeySelectionStartNStopN">
-			<bind role="onSelection" component="imgMenu">
-				<bindParam name="keyCode" value="2"/>
-			</bind>
-			<bind role="start" component="txtJPA" />
-			<bind role="stop" component="imgMenu" />
-			
-		</link>
-		
-		<link xconnector="meusConectores#onKeySelectionStartNStopN">
-			<bind role="onSelection" component="imgMenu">
-				<bindParam name="keyCode" value="3"/>
+			<bind role="onSelection" component="txtGRU">
+				<bindParam name="keyCode" value="CURSOR_LEFT"/>
 			</bind>
 			<bind role="start" component="txtPOA" />
-			<bind role="stop" component="imgMenu" />
-			
+			<bind role="stop" component="txtGRU" />
 		</link>
 		
+		<link xconnector="meusConectores#onKeySelectionStartNStopN">
+			<bind role="onSelection" component="txtGRU">
+				<bindParam name="keyCode" value="CURSOR_RIGHT"/>
+			</bind>
+			<bind role="start" component="txtJPA" />
+			<bind role="stop" component="txtGRU" />
+		</link>
+		
+		<link xconnector="meusConectores#onKeySelectionStartNStopN">
+			<bind role="onSelection" component="txtJPA">
+				<bindParam name="keyCode" value="CURSOR_LEFT"/>
+			</bind>
+			<bind role="start" component="txtGRU" />
+			<bind role="stop" component="txtJPA" />
+		</link>
+		
+		<link xconnector="meusConectores#onKeySelectionStartNStopN">
+			<bind role="onSelection" component="txtJPA">
+				<bindParam name="keyCode" value="CURSOR_RIGHT"/>
+			</bind>
+			<bind role="start" component="txtPOA" />
+			<bind role="stop" component="txtJPA" />
+		</link>
+		
+		<link xconnector="meusConectores#onKeySelectionStartNStopN">
+			<bind role="onSelection" component="txtPOA">
+				<bindParam name="keyCode" value="CURSOR_LEFT"/>
+			</bind>
+			<bind role="start" component="txtJPA" />
+			<bind role="stop" component="txtPOA" />
+		</link>
+		
+		<link xconnector="meusConectores#onKeySelectionStartNStopN">
+			<bind role="onSelection" component="txtPOA">
+				<bindParam name="keyCode" value="CURSOR_RIGHT"/>
+			</bind>
+			<bind role="start" component="txtGRU" />
+			<bind role="stop" component="txtPOA" />
+		</link>
+							
 		<link xconnector="meusConectores#onKeySelectionStartNStopN">
 			<bind role="onSelection" component="videoNoticias">
 				<bindParam name="keyCode" value="RED"/>
 			</bind>
 			<bind role="start" component="imgInteratividade" />
-			<bind role="stop" component="imgMenu" />
 			<bind role="stop" component="txtGRU"/>
 			<bind role="stop" component="txtJPA"/>
 			<bind role="stop" component="txtPOA"/>			
 		</link>
-				
-		<link xconnector="meusConectores#onKeySelectionNStartNStopN">
-			<bind role="onSelection" component="txtGRU" >
-				<bindParam name="keyCode" value="GREEN"/>
-			</bind>
-				
-			<bind role="onSelection" component="txtJPA" >
-				<bindParam name="keyCode" value="GREEN"/>
-			</bind>
-				
-			<bind role="onSelection" component="txtPOA">
-				<bindParam name="keyCode" value="GREEN"/>				
-			</bind>
-			
-			<bind role="start" component="imgMenu" />
-			<bind role="stop" component="txtGRU" />
-			<bind role="stop" component="txtJPA" />
-			<bind role="stop" component="txtPOA" />
-			
-		</link>
-		
+						
 		<link xconnector="meusConectores#onEndStopN">
 			<bind role="onEnd" component="videoNoticias" />
 			<bind role="stop" component="imgInteratividade" />
-			<bind role="stop" component="imgMenu" />
-			<bind role="stop" component="txtGRU"/>
-			<bind role="stop" component="txtJPA"/>
-			<bind role="stop" component="txtPOA"/>	
+			<bind role="stop" component="txtGRU" />
+			<bind role="stop" component="txtJPA" />
+			<bind role="stop" component="txtPOA" />
 		</link>
 				
 	</body>

@@ -1,0 +1,49 @@
+Este projeto demonstra o acesso a um arquivo txt,
+através de requisição http.
+
+
+DESCRIÇÃO:
+
+Mídia lua que ler um arquivo pré-determinado e atribui o seu
+conteúdo a propriedade 'mensagem':
+<media id="leitorDeMensagem" src="script/readTextFromHtml.lua">
+	<property name="mensagem"/>
+</media>
+
+
+Arquivo especificado, sendo lido ao iniciar o nó lua:
+local URL = "http://h264.lavid.ufpb.br/~thales/mensagem-do-dia.txt"
+function handler (e)
+	if (e.class == 'ncl' and e.type == 'presentation' and e.action=='start') then
+		readTextFromHtml(URL)
+	end
+end
+
+
+Realização da solicitação http, passando função
+callback que irá tratar a resposta:
+
+function readTextFromHtml(url)
+	http.request(url, display)
+end
+
+
+Geração de evento de atribuição, com o valor do
+conteúdo lido:
+ 
+PROPRIEDADE_NOME = 'mensagem'
+function display(header, body)
+	geraEventoDeAtriuicao(PROPRIEDADE_NOME, body)
+end
+
+Quando o evento de atribuição ocorre, é passado
+o seu valor para outra mídia responsável para
+desenhar o valor:
+<link xconnector="onEndAttributionSet">
+	<bind role="onEndAttribution" component="leitorDeMensagem" interface="mensagem"/>
+	<bind role="set" component="exibidorDeTexto" interface="texto">
+		<bindParam name="value" value="$msg"/>
+	</bind>
+	<bind role="msg" component="leitorDeMensagem" interface="mensagem"/>
+</link>
+
