@@ -17,8 +17,7 @@
 				<descriptorParam name="fontSize" value="30"/>
 				<descriptorParam name="fontColor" value="silver"/>
 			</descriptor>
-			<descriptor id="dIcone" region="rgIcone" />
-							
+			<descriptor id="dIcone" region="rgIcone" />					
 		</descriptorBase>
 		
 		<connectorBase>
@@ -56,8 +55,7 @@
 					<simpleAction role="start" max="unbounded" qualifier="par"/>
 					<simpleAction role="stop" max="unbounded" qualifier="par"/>
 				</compoundAction>
-			</causalConnector>
-			
+			</causalConnector>	
 		</connectorBase>
 	</head>
 
@@ -80,15 +78,15 @@
 			<property name="mensagem"/>
 		</media>
 		
-		<media id="exibidorGRU" src="script/escreveGRU.lua" descriptor="dTemp">
+		<media id="exibidorGRU" src="script/escreveTemp.lua" descriptor="dTemp">
 			<property name="texto"/>
 		</media>
 		
-		<media id="exibidorJPA" src="script/escreveJPA.lua" descriptor="dTemp">
+		<media id="exibidorJPA" src="script/escreveTemp.lua" descriptor="dTemp">
 			<property name="texto"/>
 		</media>
 		
-		<media id="exibidorPOA" src="script/escrevePOA.lua" descriptor="dTemp">
+		<media id="exibidorPOA" src="script/escreveTemp.lua" descriptor="dTemp">
 			<property name="texto"/>
 		</media>
 		
@@ -107,13 +105,13 @@
 		<link xconnector="meusConectores#onKeySelectionStartNStopN">
 			<bind role="onSelection" component="imgInteratividade" >
 				<bindParam name="keyCode" value="BLUE"/>
-			</bind>				
-			<bind role="start" component="exibidorGRU" />
-			<bind role="start" component="lerGRU" />				
+			</bind>
+			<bind role="start" component="exibidorGRU" />			
+			<bind role="start" component="lerGRU" />
 			<bind role="stop" component="imgInteratividade" />
 		</link>
 		
-		<!-- Os três onEndAtt necessários -->
+		<!-- Os três onEndAtt necessários -->		
 		<link xconnector="onEndAttributionSet">
 			<bind role="onEndAttribution" component="lerGRU" interface="mensagem"/>
 			<bind role="set" component="exibidorGRU" interface="texto">
@@ -123,43 +121,93 @@
 		</link>
 		
 		<link xconnector="onEndAttributionSet">
-			<bind role="onEndAttribution" component="lerPOA" interface="mensagem"/>
-			<bind role="set" component="exibidorPOA" interface="texto">
-				<bindParam name="value" value="$msg"/>
-			</bind>
-			<bind role="msg" component="lerPOA" interface="mensagem"/>
-		</link>
-		
-		<link xconnector="onEndAttributionSet">
 			<bind role="onEndAttribution" component="lerJPA" interface="mensagem"/>
 			<bind role="set" component="exibidorJPA" interface="texto">
 				<bindParam name="value" value="$msg"/>
 			</bind>
 			<bind role="msg" component="lerJPA" interface="mensagem"/>
 		</link>
+		
+		<link xconnector="onEndAttributionSet">
+			<bind role="onEndAttribution" component="lerPOA" interface="mensagem"/>
+			<bind role="set" component="exibidorPOA" interface="texto">
+				<bindParam name="value" value="$msg"/>
+			</bind>
+			<bind role="msg" component="lerPOA" interface="mensagem"/>
+		</link>
 		<!-- FIM DOS onEndATT -->
 		
-		<!-- onEndATTStart Necessários -->
+		<!-- onEndATTStart GRU -->
 		<link xconnector="onEndAttributionTestStartNStopN">
 			<bind role="onEndAttribution" component="lerGRU" interface="mensagem"/>
 			<bind role="attNodeTest" component="lerGRU" interface="mensagem">
 				<bindParam name="value" value="15"/>				
 			</bind>
 			<bind role="start" component="cloud" />
-			<bind role="start" component="exibidorGRU" />
-			<bind role="stop" component="sun" />
-			<bind role="stop" component="snow" />			
+			<bind role="stop" component="exibidorJPA" />
+			<bind role="stop" component="exibidorPOA" />		
 		</link>
 		
+		<link xconnector="onEndAttributionTestStartNStopN">
+			<bind role="onEndAttribution" component="lerGRU" interface="mensagem"/>
+			<bind role="attNodeTest" component="lerGRU" interface="mensagem">
+				<bindParam name="value" value="0"/>				
+			</bind>
+			<bind role="start" component="snow" />
+			<bind role="stop" component="exibidorJPA" />
+			<bind role="stop" component="exibidorPOA" />		
+		</link>
+		
+		<link xconnector="onEndAttributionTestStartNStopN">
+			<bind role="onEndAttribution" component="lerGRU" interface="mensagem"/>
+			<bind role="attNodeTest" component="lerGRU" interface="mensagem">
+				<bindParam name="value" value="22"/>				
+			</bind>
+			<bind role="start" component="sun" />
+			<bind role="stop" component="exibidorJPA" />
+			<bind role="stop" component="exibidorPOA" />		
+		</link>
+		
+		<!-- onEndATTStart JPA -->
 		<link xconnector="onEndAttributionTestStartNStopN">
 			<bind role="onEndAttribution" component="lerJPA" interface="mensagem"/>
 			<bind role="attNodeTest" component="lerJPA" interface="mensagem">
 				<bindParam name="value" value="22"/>				
 			</bind>
 			<bind role="start" component="sun" />
-			<bind role="start" component="exibidorJPA" />
-			<bind role="stop" component="cloud" />
-			<bind role="stop" component="snow" />			
+			<bind role="stop" component="exibidorGRU" />
+			<bind role="stop" component="exibidorPOA" />		
+		</link>
+		
+		<link xconnector="onEndAttributionTestStartNStopN">
+			<bind role="onEndAttribution" component="lerJPA" interface="mensagem"/>
+			<bind role="attNodeTest" component="lerJPA" interface="mensagem">
+				<bindParam name="value" value="0"/>				
+			</bind>
+			<bind role="start" component="snow" />
+			<bind role="stop" component="exibidorGRU" />
+			<bind role="stop" component="exibidorPOA" />		
+		</link>
+		
+		<link xconnector="onEndAttributionTestStartNStopN">
+			<bind role="onEndAttribution" component="lerJPA" interface="mensagem"/>
+			<bind role="attNodeTest" component="lerJPA" interface="mensagem">
+				<bindParam name="value" value="15"/>				
+			</bind>
+			<bind role="start" component="cloud" />
+			<bind role="stop" component="exibidorGRU" />
+			<bind role="stop" component="exibidorPOA" />		
+		</link>
+		
+		<!-- onEndATTStart POA -->
+		<link xconnector="onEndAttributionTestStartNStopN">
+			<bind role="onEndAttribution" component="lerPOA" interface="mensagem"/>
+			<bind role="attNodeTest" component="lerPOA" interface="mensagem">
+				<bindParam name="value" value="22"/>				
+			</bind>
+			<bind role="start" component="sun" />
+			<bind role="stop" component="exibidorGRU" />
+			<bind role="stop" component="exibidorJPA" />		
 		</link>
 		
 		<link xconnector="onEndAttributionTestStartNStopN">
@@ -168,30 +216,45 @@
 				<bindParam name="value" value="0"/>				
 			</bind>
 			<bind role="start" component="snow" />
-			<bind role="start" component="exibidorPOA" />
-			<bind role="stop" component="sun" />
-			<bind role="stop" component="cloud" />			
+			<bind role="stop" component="exibidorGRU" />
+			<bind role="stop" component="exibidorJPA" />		
 		</link>
-		<!-- FIM DOS onEndATTStart Necessários -->
 		
+		<link xconnector="onEndAttributionTestStartNStopN">
+			<bind role="onEndAttribution" component="lerPOA" interface="mensagem"/>
+			<bind role="attNodeTest" component="lerPOA" interface="mensagem">
+				<bindParam name="value" value="15"/>				
+			</bind>
+			<bind role="start" component="cloud" />
+			<bind role="stop" component="exibidorGRU" />
+			<bind role="stop" component="exibidorJPA" />		
+		</link>
+						
 		<!-- Caso usuário aperte LEFT ou RICHT exibindo GRU -->
 		<link xconnector="meusConectores#onKeySelectionStartNStopN">
 			<bind role="onSelection" component="exibidorGRU">
 				<bindParam name="keyCode" value="CURSOR_LEFT"/>
 			</bind>
-			<bind role="start" component="lerPOA" />
 			<bind role="start" component="exibidorPOA" />
+			<bind role="start" component="lerPOA" />
 			<bind role="stop" component="exibidorGRU" />
+			<bind role="stop" component="lerGRU" />
+			<bind role="stop" component="sun" />
 			<bind role="stop" component="cloud" />
+			<bind role="stop" component="snow" />
 		</link>
 		
 		<link xconnector="meusConectores#onKeySelectionStartNStopN">
 			<bind role="onSelection" component="exibidorGRU">
 				<bindParam name="keyCode" value="CURSOR_RIGHT"/>
 			</bind>
+			<bind role="start" component="exibidorJPA" />
 			<bind role="start" component="lerJPA" />
-			<bind role="stop" component="cloud" />
 			<bind role="stop" component="exibidorGRU" />
+			<bind role="stop" component="lerGRU" />
+			<bind role="stop" component="sun" />
+			<bind role="stop" component="cloud" />
+			<bind role="stop" component="snow" />
 		</link>
 		
 		<!-- Caso usuário aperte LEFT ou RICHT exibindo JPA -->
@@ -199,18 +262,26 @@
 			<bind role="onSelection" component="exibidorJPA">
 				<bindParam name="keyCode" value="CURSOR_LEFT"/>
 			</bind>
+			<bind role="start" component="exibidorGRU" />
 			<bind role="start" component="lerGRU" />
-			<bind role="stop" component="sun" />
 			<bind role="stop" component="exibidorJPA" />
+			<bind role="stop" component="lerJPA" />
+			<bind role="stop" component="sun" />
+			<bind role="stop" component="cloud" />
+			<bind role="stop" component="snow" />
 		</link>
 		
 		<link xconnector="meusConectores#onKeySelectionStartNStopN">
 			<bind role="onSelection" component="exibidorJPA">
 				<bindParam name="keyCode" value="CURSOR_RIGHT"/>
 			</bind>
+			<bind role="start" component="exibidorPOA" />
 			<bind role="start" component="lerPOA" />
-			<bind role="stop" component="sun" />
 			<bind role="stop" component="exibidorJPA" />
+			<bind role="stop" component="lerJPA" />
+			<bind role="stop" component="sun" />
+			<bind role="stop" component="cloud" />
+			<bind role="stop" component="snow" />
 		</link>
 		
 		<!-- Caso usuário aperte LEFT ou RICHT exibindo POA -->
@@ -218,43 +289,52 @@
 			<bind role="onSelection" component="exibidorPOA">
 				<bindParam name="keyCode" value="CURSOR_LEFT"/>
 			</bind>
+			<bind role="start" component="exibidorJPA" />
 			<bind role="start" component="lerJPA" />
-			<bind role="stop" component="snow" />
 			<bind role="stop" component="exibidorPOA" />
+			<bind role="stop" component="lerPOA" />
+			<bind role="stop" component="sun" />
+			<bind role="stop" component="cloud" />
+			<bind role="stop" component="snow" />
 		</link>
 		
 		<link xconnector="meusConectores#onKeySelectionStartNStopN">
 			<bind role="onSelection" component="exibidorPOA">
 				<bindParam name="keyCode" value="CURSOR_RIGHT"/>
 			</bind>
+			<bind role="start" component="exibidorGRU" />
 			<bind role="start" component="lerGRU" />
-			
 			<bind role="stop" component="exibidorPOA" />
+			<bind role="stop" component="lerPOA" />
+			<bind role="stop" component="sun" />
+			<bind role="stop" component="cloud" />
 			<bind role="stop" component="snow" />
 		</link>
-							
+				
 		<link xconnector="meusConectores#onKeySelectionStartNStopN">
 			<bind role="onSelection" component="videoNoticias">
 				<bindParam name="keyCode" value="RED"/>
 			</bind>
 			<bind role="start" component="imgInteratividade" />
-			<bind role="stop" component="sun"/>
-			<bind role="stop" component="cloud"/>
-			<bind role="stop" component="snow"/>
-			<bind role="stop" component="exibidorGRU"/>
+			<bind role="stop" component="exibidorGRU" />
+			<bind role="stop" component="lerGRU"/>
 			<bind role="stop" component="exibidorJPA" />
-			<bind role="stop" component="exibidorPOA" />			
+			<bind role="stop" component="lerJPA" />
+			<bind role="stop" component="exibidorPOA" />
+			<bind role="stop" component="lerPOA" />
+			<bind role="stop" component="sun" />
+			<bind role="stop" component="cloud" />
+			<bind role="stop" component="snow" />		
 		</link>
 						
 		<link xconnector="meusConectores#onEndStopN">
 			<bind role="onEnd" component="videoNoticias" />
 			<bind role="stop" component="imgInteratividade" />
-			<bind role="stop" component="sun"/>
-			<bind role="stop" component="cloud"/>
-			<bind role="stop" component="snow"/>
-			<bind role="stop" component="exibidorGRU"/>
-			<bind role="stop" component="exibidorJPA" />
-			<bind role="stop" component="exibidorPOA" />
+			<bind role="start" component="imgInteratividade" />
+			<bind role="stop" component="exibidorGRU" />
+			<bind role="stop" component="sun" />
+			<bind role="stop" component="cloud" />
+			<bind role="stop" component="snow" />
 		</link>
 				
 	</body>
