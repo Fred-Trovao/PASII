@@ -105,8 +105,8 @@
 		<link xconnector="meusConectores#onKeySelectionStartNStopN">
 			<bind role="onSelection" component="imgInteratividade" >
 				<bindParam name="keyCode" value="BLUE"/>
-			</bind>
-			<bind role="start" component="exibidorGRU" />			
+			</bind>				
+			<bind role="start" component="exibidorGRU" />
 			<bind role="start" component="lerGRU" />
 			<bind role="stop" component="imgInteratividade" />
 		</link>
@@ -210,7 +210,7 @@
 			<bind role="stop" component="exibidorJPA" />		
 		</link>
 		
-		<link xconnector="onEndAttributionTestStartNStopN">
+		<link xconnector="onEndAttributionTestStartN">
 			<bind role="onEndAttribution" component="lerPOA" interface="mensagem"/>
 			<bind role="attNodeTest" component="lerPOA" interface="mensagem">
 				<bindParam name="value" value="0"/>				
