@@ -28,20 +28,7 @@
 				<simpleCondition role="onEndAttribution"/>
 				<simpleAction role="set" value="$value"/>
 			</causalConnector>
-			
-			<causalConnector id="onEndAttributionTestStartN">
-				<connectorParam name="value"/>
-				<compoundCondition operator="and">
-					<simpleCondition role="onEndAttribution"/>
-					<assessmentStatement comparator="eq">
-						<attributeAssessment role="attNodeTest" eventType="attribution" attributeType="nodeProperty"/>
-						<valueAssessment value="$value"/>
-					</assessmentStatement>
-				</compoundCondition>
-				<simpleAction role="start" max="unbounded" qualifier="par"/>
-			</causalConnector>
-			
-			<!-- lembrar de excluir -->
+					
 			<causalConnector id="onEndAttributionTestStartNStopN">
 				<connectorParam name="value"/>
 				<compoundCondition operator="and">
@@ -210,7 +197,7 @@
 			<bind role="stop" component="exibidorJPA" />		
 		</link>
 		
-		<link xconnector="onEndAttributionTestStartN">
+		<link xconnector="onEndAttributionTestStartNStopN">
 			<bind role="onEndAttribution" component="lerPOA" interface="mensagem"/>
 			<bind role="attNodeTest" component="lerPOA" interface="mensagem">
 				<bindParam name="value" value="0"/>				
